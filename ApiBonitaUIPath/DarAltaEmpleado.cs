@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Web;
 
 namespace ApiBonitaUIPath {
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class SpecificContent {
         public string idCaso { get; set; }
         public string Hotel { get; set; }
