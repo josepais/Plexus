@@ -15,6 +15,7 @@ namespace ApiBonitaUIPath {
         public string FechaFin { get; set; }
         public string Jornada { get; set; }
         public string TipoContrato { get; set; }
+        public string SalarioBruto { get; set; }
         public string Nombre { get; set; }
         public string Apellido1 { get; set; }
         public string Apellido2 { get; set; }
@@ -45,6 +46,7 @@ namespace ApiBonitaUIPath {
         public string PensionCompensatoria { get; set; }
         public string HijosACargo { get; set; }
         public string Conyuge { get; set; }
+        
     }
 
     public class ItemData {
