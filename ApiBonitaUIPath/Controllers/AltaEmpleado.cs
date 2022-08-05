@@ -1,21 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Helpers;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
-namespace ApiBonitaUIPath.Controllers {
+namespace ApiBonitaUIPath.Controllers
+{
     [ApiController]
     [Route("api/employee")]
     public class AltaEmpleado : ControllerBase {
@@ -24,20 +15,20 @@ namespace ApiBonitaUIPath.Controllers {
         public ActionResult CreateEmployee (Root darAltaEmpleado) {
             var token = "";
             // trust any certificate
-            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls | System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback +=
                 (sender, cert, chain, sslPolicyErrors) => { return true; };
 
             var paramsToken = new Temp() { password = "Hipolito1@@", usernameOrEmailAddress = "Prueba", tenancyName = "Default" };
             using (WebClient wc1 = new WebClient()) {
-                var urlQueTeDaToken = "https://srcen107.ibs.loc/api/Account/Authenticate";
+                var urlQueTeDaToken = "https://rpa.iberostar.com/api/Account/Authenticate";
                 wc1.Headers["Content-Type"] = "application/json";
                 token = wc1.UploadString(urlQueTeDaToken, JsonConvert.SerializeObject(paramsToken));
             }
             var token1 = JsonConvert.DeserializeObject<Result>(token).result;
 
             using (WebClient wc = new WebClient()) {
-                var URI = "https://srcen107.ibs.loc/odata/Queues/UiPathODataSvc.AddQueueItem";
+                var URI = "https://rpa.iberostar.com/odata/Queues/UiPathODataSvc.AddQueueItem";
                 var json = JsonConvert.SerializeObject(darAltaEmpleado);
 
                 wc.UseDefaultCredentials = true;
