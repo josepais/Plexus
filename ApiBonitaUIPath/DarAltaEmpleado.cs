@@ -46,7 +46,10 @@ namespace ApiBonitaUIPath {
         public string PensionCompensatoria { get; set; }
         public string HijosACargo { get; set; }
         public string Conyuge { get; set; }
-        
+        public string PaisNacimiento { get; set; }
+        public string CuantiaPension { get; set; }
+        public string DivisaPension { get; set; }
+        public string MayoresACargo { get; set; }
     }
 
     public class ItemData {
