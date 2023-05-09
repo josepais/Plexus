@@ -39,6 +39,7 @@ namespace ApiBonitaUIPath {
         public string TelefonoMovil { get; set; }
         public string FechaNacimiento { get; set; }
         public string LugarNacimiento { get; set; }
+        public string ProvinciaNacimiento { get; set; }
         public string NivelEstudios { get; set; }
         public string EstadoCivil { get; set; }
         public string UnidadMedicaFamiliar { get; set; }
