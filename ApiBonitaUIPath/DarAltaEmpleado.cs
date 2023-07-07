@@ -52,6 +52,8 @@ namespace ApiBonitaUIPath {
         public string DivisaPension { get; set; }
         public string MayoresACargo { get; set; }
         public int NumeroHijos { get; set; }
+        public string IdEmpleadoSustituido { get; set; }
+        public string MotivoSustitucion { get; set; }
     }
 
     public class ItemData {

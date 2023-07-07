@@ -63,13 +63,21 @@ namespace ApiBonitaUIPath.Controllers
             
             Fichero contenidoFicheroDto = JsonConvert.DeserializeObject<Fichero>(ficheroContentido);
             //Agregas el contenido al fichero
-            if (contenidoFicheroDto  != null) contenidoFicheroDto.ClienteBonitaSAP.Add(new ClienteBonitaSAP { IdCandidatoSAP = idCandidatoSAP, IdCasoBonita = idCasoBonita });
-            else {
+            if (contenidoFicheroDto != null)
+            {
+                contenidoFicheroDto.ClienteBonitaSAP.Add(new ClienteBonitaSAP
+                {
+                    IdCandidatoSAP = idCandidatoSAP,
+                    IdCasoBonita = idCasoBonita
+                });
+            }
+            else
+            {
                 contenidoFicheroDto = new Fichero();
                 List<ClienteBonitaSAP> cliente = new List<ClienteBonitaSAP> {
-                    new ClienteBonitaSAP() { 
+                    new ClienteBonitaSAP() {
                         IdCandidatoSAP = idCandidatoSAP, IdCasoBonita = idCasoBonita
-                    } 
+                    }
                 };
                 contenidoFicheroDto.ClienteBonitaSAP = cliente;
             }
