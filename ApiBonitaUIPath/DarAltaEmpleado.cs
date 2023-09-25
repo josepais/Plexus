@@ -1,11 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-
-namespace ApiBonitaUIPath {
+﻿namespace ApiBonitaUIPath
+{
     public class SpecificContent {
         public string idCaso { get; set; }
         public string Hotel { get; set; }
@@ -14,6 +8,8 @@ namespace ApiBonitaUIPath {
         public string FechaAlta { get; set; }
         public string FechaFin { get; set; }
         public string Jornada { get; set; }
+        public string PeriodoPrueba { get; set; }
+        public string UnidadesPeriodoPrueba { get; set; }
         public string TipoContrato { get; set; }
         public string SalarioBruto { get; set; }
         public string Nombre { get; set; }
