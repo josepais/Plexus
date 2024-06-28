@@ -24,6 +24,7 @@
         public string Caducidad { get; set; }
         public string NumeroSSIMSS { get; set; }
         public string CuentaBancaria { get; set; }
+        public string MetodoPago { get; set; }
         public string Nacionalidad { get; set; }
         public string Sexo { get; set; }
         public string SiglaDomicilio { get; set; }
