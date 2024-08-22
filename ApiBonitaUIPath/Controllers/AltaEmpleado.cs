@@ -9,40 +9,45 @@ namespace ApiBonitaUIPath.Controllers
 {
     [ApiController]
     [Route("api/employee")]
-    public class AltaEmpleado : ControllerBase {
+    public class AltaEmpleado : ControllerBase
+    {
 
         [HttpPost]
-        public ActionResult CreateEmployee (Root darAltaEmpleado) {
+        public ActionResult CreateEmployee(Root darAltaEmpleado)
+        {
             var token = "";
             // trust any certificate
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback +=
                 (sender, cert, chain, sslPolicyErrors) => { return true; };
 
-            var paramsToken = new Temp() { password = "Hipolito1@@", usernameOrEmailAddress = "Prueba", tenancyName = "Default" };
-            using (WebClient wc1 = new WebClient()) {
-                var urlQueTeDaToken = "https://rpa.iberostar.com/api/Account/Authenticate";
+            var paramsToken = new Temp() { password = "Iberostar_00", usernameOrEmailAddress = "admin", tenancyName = "Iberostar" };
+            using (WebClient wc1 = new WebClient())
+            {
+                var urlQueTeDaToken = "https://rpaorch.iberostar.com/api/Account/Authenticate";
                 wc1.Headers["Content-Type"] = "application/json";
                 token = wc1.UploadString(urlQueTeDaToken, JsonConvert.SerializeObject(paramsToken));
             }
             var token1 = JsonConvert.DeserializeObject<Result>(token).result;
 
-            using (WebClient wc = new WebClient()) {
-                var URI = "https://rpa.iberostar.com/odata/Queues/UiPathODataSvc.AddQueueItem";
+            using (WebClient wc = new WebClient())
+            {
+                var URI = "https://rpaorch.iberostar.com/odata/Queues/UiPathODataSvc.AddQueueItem";
                 var json = JsonConvert.SerializeObject(darAltaEmpleado);
 
                 wc.UseDefaultCredentials = true;
                 wc.Headers[HttpRequestHeader.Authorization] = $"Bearer {token1}";
                 wc.Headers["Content-Type"] = "application/json;charset=UTF-8";
                 wc.Headers["X-UIPATH-OrganizationUnitID"] = "1";
-                wc.Headers["X-UIPATH-TenantName"] = "Default";
+                wc.Headers["X-UIPATH-TenantName"] = "Iberostar";
                 wc.UploadString(URI, "POST", json);
             }
 
             return Ok();
         }
-        [HttpGet] 
-        public string DevolverId ([FromQuery] string idCasoEmpleado) {
+        [HttpGet]
+        public string DevolverId([FromQuery] string idCasoEmpleado)
+        {
             //return idCasoEmpleado + ":" + idEmpleadoSAP;
             //Buscar donde he guardado los datos, el dato a devolver
             //Leemos el contenido del fichero:
@@ -56,11 +61,12 @@ namespace ApiBonitaUIPath.Controllers
             return elemento?.IdCandidatoSAP;
         }
         [HttpPost("/Ids")]
-        public void GuardarIds(string idCasoBonita, string idCandidatoSAP) {
+        public void GuardarIds(string idCasoBonita, string idCandidatoSAP)
+        {
             //Leemos el contenido del fichero:
             var file = Environment.CurrentDirectory + "\\File\\ids.json";
             var ficheroContentido = System.IO.File.ReadAllText(file);
-            
+
             Fichero contenidoFicheroDto = JsonConvert.DeserializeObject<Fichero>(ficheroContentido);
             //Agregas el contenido al fichero
             if (contenidoFicheroDto != null)
@@ -87,23 +93,27 @@ namespace ApiBonitaUIPath.Controllers
 
         }
         [HttpDelete("{IdCasoBonita}")]
-        public void DeleteIdJson(string IdCasoBonita) {
+        public void DeleteIdJson(string IdCasoBonita)
+        {
             var file = Environment.CurrentDirectory + "\\File\\ids.json";
             var ficheroContentido = System.IO.File.ReadAllText(file);
 
             Fichero contenidoFicheroDto = JsonConvert.DeserializeObject<Fichero>(ficheroContentido);
             var elemento = contenidoFicheroDto.ClienteBonitaSAP.FirstOrDefault(e => e.IdCasoBonita == IdCasoBonita);
-            if(elemento != null) {
+            if (elemento != null)
+            {
                 contenidoFicheroDto.ClienteBonitaSAP.Remove(elemento);
 
                 string json = JsonConvert.SerializeObject(contenidoFicheroDto);
                 System.IO.File.WriteAllText(file, json);
-            }            
+            }
         }
-        public class Result {
+        public class Result
+        {
             public string result { get; set; }
         }
-        public class Temp {
+        public class Temp
+        {
             public string password { get; set; }
             public string usernameOrEmailAddress { get; set; }
             public string tenancyName { get; set; }
